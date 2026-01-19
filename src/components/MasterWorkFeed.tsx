@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { Eye, EyeOff, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import LiveActivityFeed from "./LiveActivityFeed";
 
 interface Log {
     id: string;
@@ -76,6 +77,8 @@ export default function MasterWorkFeed({ clientId }: { clientId: string }) {
 
     return (
         <div className="space-y-6">
+            <LiveActivityFeed clientId={clientId} />
+
             {/* Rapid Log Input */}
             <div className="bg-white border border-zinc-200 rounded-xl p-4 shadow-sm">
                 <form onSubmit={handlePost}>

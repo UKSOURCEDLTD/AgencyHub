@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/Button";
 import StrategyPin from "@/components/StrategyPin";
 import SentinelGauges from "@/components/SentinelGauges";
 import TheVault from "@/components/TheVault";
+import ProfitPulse from "@/components/ProfitPulse";
+import CrisisMonitor from "@/components/CrisisMonitor";
+import FutureBattlePlan from "@/components/FutureBattlePlan";
+import MorningCoffeeSnapshot from "@/components/MorningCoffeeSnapshot";
 
 export default function DashboardPage() {
     const { user } = useAuth();
@@ -73,20 +77,35 @@ export default function DashboardPage() {
                 </header>
 
                 {/* Content */}
-                <main className="max-w-5xl mx-auto p-6 md:p-12">
-                    <StrategyPin />
+                <main className="max-w-6xl mx-auto p-4 md:p-8">
+                    {/* Mobile Only Snapshot */}
+                    <MorningCoffeeSnapshot />
+
+                    {/* Financials & Crisis - The "Peace of Mind" Section */}
+                    <div className="space-y-6 mb-8">
+                        <ProfitPulse />
+                        <CrisisMonitor />
+                    </div>
+
                     <SentinelGauges clientData={clientData} />
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-2">
-                            <div className="mb-6 flex items-baseline justify-between border-b border-zinc-200 pb-4">
-                                <h2 className="text-xl font-bold text-zinc-900">Live Pulse</h2>
-                                <span className="text-xs text-zinc-400">Timeline</span>
+                            <StrategyPin />
+                            <div className="mt-8">
+                                <div className="mb-6 flex items-baseline justify-between border-b border-zinc-200 pb-4">
+                                    <h2 className="text-xl font-bold text-zinc-900">Live Pulse</h2>
+                                    <span className="text-xs text-zinc-400">Timeline</span>
+                                </div>
+                                <ActivityFeed clientId={user.assignedClientId} />
                             </div>
-                            <ActivityFeed clientId={user.assignedClientId} />
                         </div>
-                        <div className="lg:col-span-1">
-                            <div className="bg-zinc-900 text-white p-6 rounded-xl shadow-lg mb-8">
+
+                        {/* Sidebar - The "Future" View */}
+                        <div className="lg:col-span-1 space-y-6">
+                            <FutureBattlePlan />
+
+                            <div className="bg-zinc-900 text-white p-6 rounded-xl shadow-lg">
                                 <h3 className="font-bold mb-2">Need Help?</h3>
                                 <p className="text-xs text-zinc-400 mb-4">Your account manager is online.</p>
                                 <Button size="sm" variant="secondary" className="w-full">Book Strategy Call</Button>
@@ -102,7 +121,9 @@ export default function DashboardPage() {
                         </div>
                     </div>
 
-                    <TheVault />
+                    <div className="mt-12">
+                        <TheVault />
+                    </div>
                 </main>
             </div>
         </ClientRoute>

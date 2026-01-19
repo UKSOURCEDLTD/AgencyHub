@@ -15,7 +15,36 @@ const initialAgents = [
 export default function AgentManager({ clientId }: { clientId: string }) {
     const [agents, setAgents] = useState(initialAgents);
 
-    const toggleAgent = (id: string) => {
+    const toggleAgent = async (id: string) => {
+        const agent = agents.find(a => a.id === id);
+        if (!agent) return;
+
+        // 1. Guardrail Check
+        if (agent.isActive) {
+            try {
+                const response = await fetch('/api/guardrails/check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        actionType: 'DISABLE_CORE_AGENT',
+                        value: 0,
+                        previousValue: 1
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert(`⛔ BLOCKED BY GUARDRAIL:\n${data.reason}`);
+                    return; // STOP execution
+                }
+
+            } catch (e) {
+                console.error("Guardrail skipped (dev mode)", e);
+            }
+        }
+
+        // 2. Proceed if Safe
         setAgents(agents.map(a => a.id === id ? { ...a, isActive: !a.isActive } : a));
     };
 

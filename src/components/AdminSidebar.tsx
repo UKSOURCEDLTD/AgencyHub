@@ -5,12 +5,15 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users, FileText, BarChart3, Settings, ShieldCheck, LogOut, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { auth } from "@/lib/firebase";
+import KillSwitch from "@/components/KillSwitch";
 
 const navItems = [
     { href: "/admin", label: "Command Center", icon: LayoutDashboard },
     { href: "/admin/clients", label: "Client Directory", icon: Users },
     { href: "/admin/agents", label: "Agent Station", icon: Bot },
+    { href: "/admin/audit", label: "Audit Engine", icon: ShieldCheck },
     { href: "/admin/sops", label: "SOP Library", icon: FileText },
+    { href: "/admin/profit", label: "Agency FinOps", icon: DollarSign },
     { href: "/admin/crm", label: "CRM & Growth", icon: BarChart3 },
 ];
 
@@ -67,6 +70,11 @@ export default function AdminSidebar() {
                     <LogOut className="h-4 w-4" />
                     <span>Sign Out</span>
                 </button>
+            </div>
+
+            {/* Kill Switch Mount Point */}
+            <div className="p-4 border-t border-zinc-900 bg-zinc-950">
+                <KillSwitch />
             </div>
         </aside>
     );
