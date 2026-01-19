@@ -2,10 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, FileText, BarChart3, Settings, ShieldCheck, LogOut, Bot } from "lucide-react";
+import { LayoutDashboard, Users, FileText, BarChart3, Settings, ShieldCheck, LogOut, Bot, DollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { auth } from "@/lib/firebase";
-import KillSwitch from "@/components/KillSwitch";
 
 const navItems = [
     { href: "/admin", label: "Command Center", icon: LayoutDashboard },
@@ -72,10 +71,6 @@ export default function AdminSidebar() {
                 </button>
             </div>
 
-            {/* Kill Switch Mount Point */}
-            <div className="p-4 border-t border-zinc-900 bg-zinc-950">
-                <KillSwitch />
-            </div>
         </aside>
     );
 }
